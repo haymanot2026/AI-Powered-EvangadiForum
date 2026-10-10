@@ -14,8 +14,15 @@ const app = express();
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+import cors from "cors";
 
+app.use(
+  cors({
+    origin: "https://ai-powered-evangadi-forum-roan.vercel.app",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 //Main api
 app.use("/api", mainRouter);
 
