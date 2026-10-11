@@ -1,4 +1,4 @@
-// Loads .env before anything else.
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -12,28 +12,33 @@ import { warmQuestionTagEmbeddings } from "./src/api/question/service/question-t
 
 const app = express();
 
-// When deployed (Render, Railway, Vercel, Nginx...), requests reach this app
-// through a proxy. This makes req.ip the visitor's real IP instead of the
-// proxy's, so the login rate limit counts each visitor separately.
 app.set("trust proxy", 1);
 
-// middleware
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "https://ai-powered-evangadi-forum-roan.vercel.app",
+  "http://localhost:5173",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-// Only profile photos are public. Users' PDFs (uploads/rag) are NOT served
-// here; they are only reachable through GET /api/rag/documents/:id/file,
-// which checks that the document belongs to the logged-in user.
+
+// Public profile photos only; private RAG documents remain protected.
 app.use("/uploads/profiles", express.static(PROFILE_UPLOAD_DIR));
 
-//Main api
 app.use("/api", mainRouter);
 
-//  your error handler middleware should be after all api calls
 app.use(notFound);
 app.use(errorHandler);
 
-// connection and server configuration
 const PORT = process.env.PORT || 5000;
 
 async function startServer() {
@@ -42,7 +47,7 @@ async function startServer() {
     connection.release();
     console.log("Connected to database");
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
