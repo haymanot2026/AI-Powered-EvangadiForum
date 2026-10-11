@@ -1,4 +1,4 @@
-// Loads .env before anything else.
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -8,25 +8,19 @@ import { db } from "./schema/db.config.js";
 import { mainRouter } from "./src/mainRoutes.js";
 import { errorHandler, notFound } from "./src/middleware/error-handler.js";
 
-
 const app = express();
 
-// middleware
+app.use(cors({
+  origin: "https://ai-powered-evangadi-forum-roan.vercel.app",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-import cors from "cors";
 
-app.use(
-  cors({
-    origin: "https://ai-powered-evangadi-forum-roan.vercel.app",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-//Main api
 app.use("/api", mainRouter);
 
-//  your error handler middleware should be after all api calls
 app.use(notFound);
 app.use(errorHandler);
 

@@ -1,7 +1,5 @@
 import axios from "axios";
 
-import axios from "axios";
-
 const api = axios.create({
   // Vercel ላይ ያለው Environment Variable ቢጠፋ እንኳ በቀጥታ ወደ ትክክለኛው የRender አድራሻዎ እንዲሄድ ተደርጓል
   baseURL: import.meta.env.VITE_API_BASE_URL || "https://ai-powered-evangadiforum-11.onrender.com",
