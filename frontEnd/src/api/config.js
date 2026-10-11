@@ -5,11 +5,13 @@
 //   "https://my-api.onrender.com"       ok ("/api" added)
 // Vite reads this at BUILD time: after changing it on Vercel, redeploy.
 
-const DEFAULT_API_BASE_URL = "http://localhost:5000/api";
+export const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://ai-powered-evangadiforum-11.onrender.com/api";
 
 export function normalizeApiBaseUrl(value) {
   let url = String(value || "").trim();
-  if (!url) url = DEFAULT_API_BASE_URL;
+  if (!url) url = API_BASE_URL;
   url = url.replace(/\/+$/, "");
   if (!/\/api$/.test(url)) url = `${url}/api`;
   return url;
