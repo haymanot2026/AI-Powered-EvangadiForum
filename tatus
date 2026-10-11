@@ -1,0 +1,16 @@
+* [33mf1c7ba7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m fix: point API base URL to /api so auth and other routes resolve correctly
+*   [33mfd51661[m Merge GitHub main with local main
+[32m|[m[33m\[m  
+[32m|[m * [33m9c2a74b[m Initial commit
+* [33mc538691[m Update forum title
+*   [33mc1631ae[m Merge pull request #101 from hana-Berhe/fix/hide-tag-mobile
+[34m|[m[35m\[m  
+[34m|[m * [33me55d546[m Remove seed:faq script from package.json
+[34m|[m * [33mcd30691[m Hide tag badge on mobile, remove FAQ seed script, update README
+[34m|[m[34m/[m  
+*   [33mff54e72[m Merge pull request #100 from hana-Berhe/style/bigger-avatars
+[36m|[m[1;31m\[m  
+[36m|[m * [33m1dd3b93[m Bigger avatars everywhere, ignore .envDeploy
+[36m|[m[36m/[m  
+*   [33ma2f1457[m Merge pull request #99 from hana-Berhe/feature/deploy-ready
+[1;32m|[m[1;33m\[m  
